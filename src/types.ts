@@ -1,6 +1,4 @@
-import { ComponentType } from 'react';
-
-import { Color, Theme, WindowsTheme } from './common/themes/types';
+import { ElementType } from 'react';
 
 export type Sizes = 'sm' | 'md' | 'lg';
 
@@ -13,9 +11,10 @@ export type DimensionValue = undefined | number | string;
 export type CommonStyledProps = {
   /**
    * "as" polymorphic prop allows to render a different HTML element or React component
-   * @see {@link https://styled-components.com/docs/api#as-polymorphic-prop}
    */
-  as?: string | ComponentType<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  as?: ElementType;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,5 +25,3 @@ export type CommonThemeProps = {
   $disabled?: boolean;
   shadow?: boolean;
 };
-
-export { Color, Theme, WindowsTheme };

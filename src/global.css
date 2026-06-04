@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@import "./TailwindTheme/tokens.css";
+
+@theme {
+  --color-anchor: var(--t-anchor);
+  --color-anchor-visited: var(--t-anchor-visited);
+  --color-border-dark: var(--t-border-dark);
+  --color-border-darkest: var(--t-border-darkest);
+  --color-border-light: var(--t-border-light);
+  --color-border-lightest: var(--t-border-lightest);
+  --color-canvas: var(--t-canvas);
+  --color-canvas-text: var(--t-canvas-text);
+  --color-canvas-text-disabled: var(--t-canvas-text-disabled);
+  --color-canvas-text-disabled-shadow: var(--t-canvas-text-disabled-shadow);
+  --color-canvas-text-invert: var(--t-canvas-text-invert);
+  --color-checkmark: var(--t-checkmark);
+  --color-checkmark-disabled: var(--t-checkmark-disabled);
+  --color-desktop-background: var(--t-desktop-background);
+  --color-flat-dark: var(--t-flat-dark);
+  --color-flat-light: var(--t-flat-light);
+  --color-focus-secondary: var(--t-focus-secondary);
+  --color-header-background: var(--t-header-background);
+  --color-header-not-active-background: var(--t-header-not-active-background);
+  --color-header-not-active-text: var(--t-header-not-active-text);
+  --color-header-text: var(--t-header-text);
+  --color-hover-background: var(--t-hover-background);
+  --color-material: var(--t-material);
+  --color-material-dark: var(--t-material-dark);
+  --color-material-text: var(--t-material-text);
+  --color-material-text-disabled: var(--t-material-text-disabled);
+  --color-material-text-disabled-shadow: var(--t-material-text-disabled-shadow);
+  --color-material-text-invert: var(--t-material-text-invert);
+  --color-progress: var(--t-progress);
+  --color-tooltip: var(--t-tooltip);
+
+  /* Shadows (Win95 bevel effects) */
+  --shadow-out: inset 1px 1px 0px 1px var(--color-border-lightest),
+    inset 0 0 0 1px var(--color-border-dark),
+    1px 1px 0 0px var(--color-border-darkest);
+  --shadow-in: inset 1px 1px 0px 1px var(--color-border-dark),
+    inset 0 0 0 1px var(--color-border-light),
+    1px 1px 0 0px var(--color-border-lightest);
+  --shadow-tooltip: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Global resets carried from styleReset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'ms_sans_serif';
+  src: url('./assets/fonts/ms_sans_serif.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ms_sans_serif';
+  src: url('./assets/fonts/ms_sans_serif_bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  font-family: 'ms_sans_serif', sans-serif;
+}
