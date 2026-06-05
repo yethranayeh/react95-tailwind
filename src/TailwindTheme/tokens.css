@@ -1,7 +1,6 @@
 /* Generated file - do not edit manually */
 
 [data-theme="aiee"] {
-  --t-name: aiee;
   --t-anchor: rgb(0,0,128);
   --t-anchor-visited: rgb(0,0,128);
   --t-border-dark: rgb(211,214,217);
@@ -35,7 +34,6 @@
 }
 
 [data-theme="ash"] {
-  --t-name: ash;
   --t-anchor: rgb(192, 192, 192);
   --t-anchor-visited: rgb(192, 192, 192);
   --t-border-dark: rgb(63, 63, 63);
@@ -69,7 +67,6 @@
 }
 
 [data-theme="azureOrange"] {
-  --t-name: azureOrange;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #05427f;
@@ -103,7 +100,6 @@
 }
 
 [data-theme="bee"] {
-  --t-name: bee;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #846d06;
@@ -137,7 +133,6 @@
 }
 
 [data-theme="blackAndWhite"] {
-  --t-name: blackAndWhite;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #888c8f;
@@ -171,7 +166,6 @@
 }
 
 [data-theme="blue"] {
-  --t-name: blue;
   --t-anchor: rgb(0, 0, 128);
   --t-anchor-visited: rgb(0, 0, 128);
   --t-border-dark: rgb(49, 131, 221);
@@ -205,7 +199,6 @@
 }
 
 [data-theme="brick"] {
-  --t-name: brick;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #6c684b;
@@ -239,7 +232,6 @@
 }
 
 [data-theme="candy"] {
-  --t-name: candy;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #d1579e;
@@ -273,7 +265,6 @@
 }
 
 [data-theme="cherry"] {
-  --t-name: cherry;
   --t-anchor: rgb(128, 0, 1);
   --t-anchor-visited: rgb(128, 0, 1);
   --t-border-dark: rgb(128, 128, 128);
@@ -307,7 +298,6 @@
 }
 
 [data-theme="coldGray"] {
-  --t-name: coldGray;
   --t-anchor: #8d88c2;
   --t-anchor-visited: #440381;
   --t-background: #4C6663;
@@ -342,7 +332,6 @@
 }
 
 [data-theme="counterStrike"] {
-  --t-name: counterStrike;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #2c3125;
@@ -376,7 +365,6 @@
 }
 
 [data-theme="darkTeal"] {
-  --t-name: darkTeal;
   --t-anchor: rgb(0, 132, 132);
   --t-anchor-visited: rgb(0, 132, 132);
   --t-border-dark: rgb(21, 43, 43);
@@ -410,7 +398,6 @@
 }
 
 [data-theme="denim"] {
-  --t-name: denim;
   --t-anchor: rgb(0, 0, 128);
   --t-anchor-visited: rgb(0, 0, 128);
   --t-border-dark: rgb(0, 0, 255);
@@ -444,7 +431,6 @@
 }
 
 [data-theme="eggplant"] {
-  --t-name: eggplant;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #526d67;
@@ -478,7 +464,6 @@
 }
 
 [data-theme="fxDev"] {
-  --t-name: fxDev;
   --t-anchor: rgb(47, 138, 202);
   --t-anchor-visited: rgb(47, 138, 202);
   --t-border-dark: rgb(27, 33, 39);
@@ -512,7 +497,6 @@
 }
 
 [data-theme="highContrast"] {
-  --t-name: highContrast;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #888c8f;
@@ -546,7 +530,6 @@
 }
 
 [data-theme="honey"] {
-  --t-name: honey;
   --t-anchor: rgb(128, 128, 0);
   --t-anchor-visited: rgb(128, 128, 0);
   --t-border-dark: rgb(170, 123, 0);
@@ -580,7 +563,6 @@
 }
 
 [data-theme="hotChocolate"] {
-  --t-name: hotChocolate;
   --t-anchor: rgb(128, 96, 64);
   --t-anchor-visited: rgb(128, 96, 64);
   --t-border-dark: rgb(128, 96, 64);
@@ -614,7 +596,6 @@
 }
 
 [data-theme="hotdogStand"] {
-  --t-name: hotdogStand;
   --t-anchor: rgb(255, 255, 0);
   --t-anchor-visited: rgb(255, 255, 0);
   --t-border-dark: rgb(0, 0, 0);
@@ -648,7 +629,6 @@
 }
 
 [data-theme="lilac"] {
-  --t-name: lilac;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #5f549b;
@@ -682,7 +662,6 @@
 }
 
 [data-theme="lilacRoseDark"] {
-  --t-name: lilacRoseDark;
   --t-anchor: #a65387;
   --t-anchor-visited: #440381;
   --t-background: #3B3B58;
@@ -717,7 +696,6 @@
 }
 
 [data-theme="maple"] {
-  --t-name: maple;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #ab9042;
@@ -751,7 +729,6 @@
 }
 
 [data-theme="marine"] {
-  --t-name: marine;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #3c8d88;
@@ -785,7 +762,6 @@
 }
 
 [data-theme="matrix"] {
-  --t-name: matrix;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #282828;
@@ -819,7 +795,6 @@
 }
 
 [data-theme="millenium"] {
-  --t-name: millenium;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #828282;
@@ -853,7 +828,6 @@
 }
 
 [data-theme="modernDark"] {
-  --t-name: modernDark;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #121317;
@@ -887,7 +861,6 @@
 }
 
 [data-theme="molecule"] {
-  --t-name: molecule;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #993845;
@@ -920,11 +893,7 @@
   --t-tooltip: #fefbcc;
 }
 
-[data-theme="monochrome"] {
-}
-
 [data-theme="ninjaTurtles"] {
-  --t-name: ninjaTurtles;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #017401;
@@ -958,7 +927,6 @@
 }
 
 [data-theme="olive"] {
-  --t-name: olive;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #4f4c02;
@@ -992,7 +960,6 @@
 }
 
 :root, [data-theme="original"] {
-  --t-name: original;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #848584;
@@ -1026,7 +993,6 @@
 }
 
 [data-theme="pamelaAnderson"] {
-  --t-name: pamelaAnderson;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #7e0541;
@@ -1060,7 +1026,6 @@
 }
 
 [data-theme="peggysPastels"] {
-  --t-name: peggysPastels;
   --t-anchor: rgb(0, 128, 128);
   --t-anchor-visited: rgb(0, 128, 128);
   --t-border-dark: rgb(222, 69, 96);
@@ -1094,7 +1059,6 @@
 }
 
 [data-theme="plum"] {
-  --t-name: plum;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #7b5f5b;
@@ -1128,7 +1092,6 @@
 }
 
 [data-theme="polarized"] {
-  --t-name: polarized;
   --t-anchor: rgb(160, 160, 128);
   --t-anchor-visited: rgb(160, 160, 128);
   --t-border-dark: rgb(60, 60, 194);
@@ -1162,7 +1125,6 @@
 }
 
 [data-theme="powerShell"] {
-  --t-name: powerShell;
   --t-anchor: rgb(0, 192, 0);
   --t-anchor-visited: rgb(0, 192, 0);
   --t-border-dark: rgb(128, 128, 128);
@@ -1196,7 +1158,6 @@
 }
 
 [data-theme="rainyDay"] {
-  --t-name: rainyDay;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #3d5367;
@@ -1230,7 +1191,6 @@
 }
 
 [data-theme="raspberry"] {
-  --t-name: raspberry;
   --t-anchor: rgb(10, 36, 106);
   --t-anchor-visited: rgb(10, 36, 106);
   --t-border-dark: rgb(92, 101, 107);
@@ -1264,7 +1224,6 @@
 }
 
 [data-theme="redWine"] {
-  --t-name: redWine;
   --t-anchor: rgb(255, 0, 0);
   --t-anchor-visited: rgb(255, 0, 0);
   --t-border-dark: rgb(67, 9, 5);
@@ -1298,7 +1257,6 @@
 }
 
 [data-theme="rose"] {
-  --t-name: rose;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #8a5b68;
@@ -1332,7 +1290,6 @@
 }
 
 [data-theme="seawater"] {
-  --t-name: seawater;
   --t-anchor: rgb(0, 0, 128);
   --t-anchor-visited: rgb(0, 0, 128);
   --t-border-dark: rgb(167, 194, 224);
@@ -1366,7 +1323,6 @@
 }
 
 [data-theme="shelbiTeal"] {
-  --t-name: shelbiTeal;
   --t-anchor: rgb(0, 128, 128);
   --t-anchor-visited: rgb(0, 128, 128);
   --t-border-dark: rgb(96, 128, 128);
@@ -1400,7 +1356,6 @@
 }
 
 [data-theme="slate"] {
-  --t-name: slate;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #446b7c;
@@ -1434,7 +1389,6 @@
 }
 
 [data-theme="solarizedDark"] {
-  --t-name: solarizedDark;
   --t-anchor: rgb(38, 139, 210);
   --t-anchor-visited: rgb(38, 139, 210);
   --t-border-dark: rgb(0, 43, 54);
@@ -1468,7 +1422,6 @@
 }
 
 [data-theme="solarizedLight"] {
-  --t-name: solarizedLight;
   --t-anchor: rgb(38, 139, 210);
   --t-anchor-visited: rgb(38, 139, 210);
   --t-border-dark: rgb(253, 246, 227);
@@ -1502,7 +1455,6 @@
 }
 
 [data-theme="spruce"] {
-  --t-name: spruce;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #477b5e;
@@ -1536,7 +1488,6 @@
 }
 
 [data-theme="stormClouds"] {
-  --t-name: stormClouds;
   --t-anchor: rgb(64, 64, 255);
   --t-anchor-visited: rgb(64, 64, 255);
   --t-border-dark: rgb(47, 52, 53);
@@ -1570,7 +1521,6 @@
 }
 
 [data-theme="theSixtiesUSA"] {
-  --t-name: theSixtiesUSA;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #6c1f71;
@@ -1604,7 +1554,6 @@
 }
 
 [data-theme="tokyoDark"] {
-  --t-name: tokyoDark;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #1f2223;
@@ -1638,7 +1587,6 @@
 }
 
 [data-theme="toner"] {
-  --t-name: toner;
   --t-anchor: rgb(0, 0, 128);
   --t-anchor-visited: rgb(0, 0, 128);
   --t-border-dark: rgb(0, 0, 0);
@@ -1672,7 +1620,6 @@
 }
 
 [data-theme="tooSexy"] {
-  --t-name: tooSexy;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #5a0302;
@@ -1706,7 +1653,6 @@
 }
 
 [data-theme="travel"] {
-  --t-name: travel;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #695f50;
@@ -1740,7 +1686,6 @@
 }
 
 [data-theme="vaporTeal"] {
-  --t-name: vaporTeal;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #00706f;
@@ -1774,7 +1719,6 @@
 }
 
 [data-theme="vermillion"] {
-  --t-name: vermillion;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #7f2120;
@@ -1808,7 +1752,6 @@
 }
 
 [data-theme="violetDark"] {
-  --t-name: violetDark;
   --t-anchor: #1034a6;
   --t-anchor-visited: #440381;
   --t-border-dark: #3c1f3e;
@@ -1842,7 +1785,6 @@
 }
 
 [data-theme="vistaesqueMidnight"] {
-  --t-name: vistaesqueMidnight;
   --t-anchor: rgb(64, 64, 192);
   --t-anchor-visited: rgb(64, 64, 192);
   --t-border-dark: rgb(21, 21, 21);
@@ -1876,7 +1818,6 @@
 }
 
 [data-theme="water"] {
-  --t-name: water;
   --t-anchor: #72b3b4;
   --t-anchor-visited: #440381;
   --t-border-dark: #888c8f;
@@ -1910,7 +1851,6 @@
 }
 
 [data-theme="white"] {
-  --t-name: white;
   --t-anchor: rgb(0, 0, 128);
   --t-anchor-visited: rgb(0, 0, 128);
   --t-border-dark: rgb(0, 0, 0);
@@ -1944,7 +1884,6 @@
 }
 
 [data-theme="windows1"] {
-  --t-name: windows1;
   --t-anchor: rgb(0, 0, 85);
   --t-anchor-visited: rgb(0, 0, 85);
   --t-border-dark: rgb(0, 0, 0);
@@ -1978,7 +1917,6 @@
 }
 
 [data-theme="wmii"] {
-  --t-name: wmii;
   --t-anchor: rgb(129, 101, 79);
   --t-anchor-visited: rgb(129, 101, 79);
   --t-border-dark: rgb(145, 148, 75);

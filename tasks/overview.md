@@ -8,7 +8,7 @@
 
 | Phase | Name       | Tasks  | Status     |
 | ----- | ---------- | ------ | ---------- |
-| 1     | Scaffold   | 01-02  | ⬜ Pending |
+| 1     | Scaffold   | 01-02  | ✅ Complete |
 | 2     | Primitives | 03-05  | ⬜ Pending |
 | 3     | Components | 06-09  | ⬜ Pending |
 | 4     | Build      | 10-12  | ⬜ Pending |
@@ -19,8 +19,8 @@
 
 | Task | File                                                      | Description                              | Deps | Status |
 | ---- | --------------------------------------------------------- | ---------------------------------------- | ---- | ------ |
-| 01   | [01-project-setup.md](phase-1-scaffold/01-project-setup.md)     | Vite + Tailwind v4 + TypeScript scaffold. Remove all styled-components/Rollup/Babel tooling. | None | ⬜     |
-| 02   | [02-theme-tokens.md](phase-1-scaffold/02-theme-tokens.md)       | Port 27-color `Theme` type + 61 built-in themes to Tailwind `@theme` + CSS custom properties. | None | ⬜     |
+| 01   | [01-project-setup.md](phase-1-scaffold/01-project-setup.md)     | Vite + Tailwind v4 + TypeScript scaffold. Remove all styled-components/Rollup/Babel tooling. | None | ✅     |
+| 02   | [02-theme-tokens.md](phase-1-scaffold/02-theme-tokens.md)       | Port 27-color `Theme` type + 61 built-in themes to Tailwind `@theme` + CSS custom properties. | None | ✅     |
 
 ## Phase 2: Primitives -- Core style engine and base components
 
