@@ -1,4 +1,4 @@
-import { WindowsTheme } from '../../types';
+import { WindowsTheme, Sizes } from '../../types';
 
 export const noOp = () => {};
 
@@ -107,3 +107,22 @@ export function roundValueToStep(value: number, step: number, min: number) {
 export function getSize(value: string | number) {
   return typeof value === 'number' ? `${value}px` : value;
 }
+
+export const blockSizes: Record<Sizes, string> = {
+  sm: '28px',
+  md: '36px',
+  lg: '44px'
+};
+
+export const KEYBOARD_KEY_CODES = {
+  ARROW_DOWN: 'ArrowDown',
+  ARROW_LEFT: 'ArrowLeft',
+  ARROW_RIGHT: 'ArrowRight',
+  ARROW_UP: 'ArrowUp',
+  END: 'End',
+  ENTER: 'Enter',
+  ESC: 'Escape',
+  HOME: 'Home',
+  SPACE: 'Space',
+  TAB: 'Tab'
+};

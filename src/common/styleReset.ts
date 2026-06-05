@@ -1,4 +1,4 @@
-export default `
+const styleReset = `
   html,
 body,
 div,
@@ -156,5 +156,6 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-
 `;
+
+export default styleReset;
