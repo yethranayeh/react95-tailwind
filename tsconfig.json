@@ -11,8 +11,13 @@
     "rootDir": "./src",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
-  "include": ["src"],
-  "exclude": ["src/**/*.spec.tsx", "src/**/*.spec.ts", "src/**/*.stories.tsx", "src/**/*.stories.ts", "test"]
+  "include": ["src/index.ts", "src/types.ts", "src/globals.d.ts", "src/common", "src/TailwindTheme"],
+  "exclude": ["test"]
 }
