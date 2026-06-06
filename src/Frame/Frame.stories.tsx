@@ -1,28 +1,26 @@
-import { ComponentMeta } from '@storybook/react';
 import React from 'react';
-import { Frame } from 'react95';
-import styled from 'styled-components';
+import { Frame } from './Frame';
 
-const Wrapper = styled.div`
-  padding: 5rem;
-  background: ${({ theme }) => theme.material};
-  #default-buttons button {
-    margin-bottom: 1rem;
-    margin-right: 1rem;
-  }
-
-  #cutout {
-    background: ${({ theme }) => theme.canvas};
-    padding: 1rem;
-    width: 300px;
-  }
-`;
+const Wrapper = ({ children }: { children: React.ReactNode }) => (
+  <div
+    style={{
+      padding: '5rem',
+      background: 'var(--t-material)'
+    }}
+  >
+    <div id='default-buttons'>
+      {/* Note: This ID was used in the original for styling buttons,
+          which will be handled by the Button component later */}
+      {children}
+    </div>
+  </div>
+);
 
 export default {
   title: 'Layout/Frame',
   component: Frame,
-  decorators: [story => <Wrapper>{story()}</Wrapper>]
-} as ComponentMeta<typeof Frame>;
+  decorators: [(story: () => React.ReactNode) => <Wrapper>{story()}</Wrapper>]
+};
 
 export function Default() {
   return (
