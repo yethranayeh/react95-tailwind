@@ -10,10 +10,10 @@
     "components",
     "vaporwave"
   ],
-  "author": "Artur Bień <artur.bien+react95@gmail.com> (https://www.linkedin.com/in/arturbien/)",
+  "author": "React95 Tailwind Contributors",
   "license": "MIT",
-  "repository": "git@github.com:arturbien/React95.git",
-  "homepage": "https://react95.io",
+  "repository": "git@github.com:yethranayeh/react95-tailwind.git",
+  "homepage": "https://github.com/yethranayeh/react95-tailwind",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
