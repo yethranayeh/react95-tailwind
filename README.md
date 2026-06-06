@@ -7,7 +7,7 @@
 
 > [!IMPORTANT]
 > This is a **Tailwind CSS migration fork** of the original [React95](https://github.com/react95-io/react95) library.
-> It was mainly implemented by **Jules from Google** as a way to test his capabilities as an AI software engineer.
+> It was mainly implemented by **[Jules](https://jules.google.com/)** as a way to test what this autonomous coding agent is capable of.
 
 <p align="center">
   <b>Refreshed</b> Windows95 UI components for your modern React apps. <br /> Rebuilt with Tailwind CSS 🚀</p>
