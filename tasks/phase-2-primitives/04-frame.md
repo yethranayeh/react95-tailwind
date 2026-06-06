@@ -1,6 +1,6 @@
 # Task 04: Frame
 
-> Status: Pending | Deps: 03 | Source: `src/Frame/Frame.tsx` (68 lines)
+> Status: Complete | Deps: 03 | Source: `src/Frame/Frame.tsx` (68 lines)
 
 ## Motivation
 

@@ -2,18 +2,19 @@
 
 ## Current Progress (as of 2026-06-06)
 
-Tasks 01, 02, and 03 are completed. The project structure is set up with Vite, Tailwind v4, and the necessary tokens and style engine utilities.
+Tasks 01, 02, 03, and 04 are completed. The project structure is set up with Vite, Tailwind v4, and the necessary tokens and style engine utilities.
 
 ### Completed Tasks Recap:
 - **Task 01**: Project scaffold, dependencies, and configuration.
 - **Task 02**: Theme tokens migrated to CSS custom properties and Tailwind `@theme`.
 - **Task 03**: Style engine rewritten as Tailwind utility classes (borders, hatched backgrounds, etc.).
+- **Task 04**: Migrate the `Frame` component.
 
 ### Next Steps:
-- **Task 04**: Migrate the `Frame` component.
-  - **Source**: `src/Frame/Frame.tsx`.
-  - **Status**: Currently still uses `styled-components`. Needs to be rewritten using the new Tailwind utility classes.
-  - **Reference**: `tasks/phase-2-primitives/04-frame.md`.
+- **Task 05**: Migrate the `Button` component.
+  - **Source**: `src/Button/Button.tsx`.
+  - **Status**: Pending.
+  - **Reference**: `tasks/phase-2-primitives/05-button.md`.
 
 ## Key Information for Future Agents:
 - **Style Engine Mapping**: `src/common/styleEngine.ts` contains `borderStyleMap` which maps old `BorderStyles` to the new Tailwind classes (e.g., `window` -> `border-window`).
