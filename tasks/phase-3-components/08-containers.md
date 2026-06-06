@@ -14,65 +14,92 @@ Container components are compound -- they have sub-components and internal state
 
 **Window component:**
 ```tsx
+import React, { forwardRef } from 'react';
+import { cn } from '../common/utils';
+import { CommonStyledProps } from '../types';
+
+export interface WindowProps extends React.HTMLAttributes<HTMLDivElement>, CommonStyledProps {
+  resizable?: boolean;
+  shadow?: boolean;
+}
+
 export const Window = forwardRef<HTMLDivElement, WindowProps>(
-  ({ resizable = false, shadow = true, children, className, ...rest }, ref) => (
-    <div
+  ({ resizable = false, shadow = true, children, className, as: Component = 'div', ...rest }, ref) => (
+    <Component
       ref={ref}
-      className={clsx(
-        "bg-material p-[3px]",
-        shadow && "shadow-[var(--shadow-out)]",
-        className,
+      className={cn(
+        'bg-material p-[3px] border-window',
+        shadow && 'shadow-[var(--shadow-out)]',
+        className
       )}
       {...rest}
     >
       {children}
-      {resizable && <div className="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize bg-[repeating-linear-gradient(135deg,var(--color-border-darkest),var(--color-border-darkest)_1px,transparent_1px,transparent_2px)]" />}
-    </div>
-  ),
+      {resizable && (
+        <div className="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize bg-[repeating-linear-gradient(135deg,var(--color-border-darkest),var(--color-border-darkest)_1px,transparent_1px,transparent_2px)]" />
+      )}
+    </Component>
+  )
 );
+Window.displayName = 'Window';
 ```
 
 **WindowHeader component:**
 ```tsx
+import React, { forwardRef } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../common/utils';
+import { CommonStyledProps } from '../types';
+
+const windowHeaderVariants = cva(
+  'flex items-center justify-between px-1 h-[30px] select-none',
+  {
+    variants: {
+      active: {
+        true: 'bg-header-background text-header-text',
+        false: 'bg-header-not-active-background text-header-not-active-text'
+      }
+    },
+    defaultVariants: {
+      active: true
+    }
+  }
+);
+
+export interface WindowHeaderProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof windowHeaderVariants>,
+    CommonStyledProps {}
+
 export const WindowHeader = forwardRef<HTMLDivElement, WindowHeaderProps>(
-  ({ active = true, children, className, ...rest }, ref) => (
-    <div
+  ({ active, children, className, as: Component = 'div', ...rest }, ref) => (
+    <Component
       ref={ref}
-      className={clsx(
-        "flex items-center justify-between px-1 h-[30px] select-none",
-        active
-          ? "bg-header-background text-header-text"
-          : "bg-header-not-active-background text-header-not-active-text",
-        className,
-      )}
+      className={cn(windowHeaderVariants({ active }), className)}
       {...rest}
     >
       {children}
-    </div>
-  ),
+    </Component>
+  )
 );
+WindowHeader.displayName = 'WindowHeader';
 ```
 
 **WindowContent component:**
 ```tsx
 export const WindowContent = forwardRef<HTMLDivElement, WindowContentProps>(
-  ({ children, className, ...rest }, ref) => (
-    <div
+  ({ children, className, as: Component = 'div', ...rest }, ref) => (
+    <Component
       ref={ref}
-      className={clsx("p-4", className)}
+      className={cn('p-4', className)}
       {...rest}
     >
       {children}
-    </div>
-  ),
+    </Component>
+  )
 );
+WindowContent.displayName = 'WindowContent';
 ```
-
-**Key decisions:**
-- Title bar gradient: The original uses a subtle gradient. Tailwind version uses solid color (header-background). If gradient is essential, add a custom class.
-- Header buttons (minimize/maximize/close): These use `Button` (Task 05) with `variant="default"` and `square` + `size="sm"`. The original's `WindowHeader` imports `StyledButton` -- we'll compose the same way.
-- Resize handle: CSS `repeating-linear-gradient` pattern, identical to original approach.
-- `WindowHeader` renders children. Consumer composes title text + buttons  inside it. This is unchanged.
 
 ### 2. Tabs (`src/Tabs/`)
 
@@ -81,59 +108,76 @@ export const WindowContent = forwardRef<HTMLDivElement, WindowContentProps>(
 **Tabs component (container):**
 ```tsx
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
-  ({ children, rows, className, ...rest }, ref) => (
-    <div
+  ({ children, rows, className, as: Component = 'div', style, ...rest }, ref) => (
+    <Component
       ref={ref}
-      className={clsx(
-        "flex flex-wrap border-b-2 border-border-dark",
-        rows && `flex-wrap`,
-        className,
+      className={cn(
+        'flex flex-wrap border-b-2 border-border-dark',
+        className
       )}
-      style={rows ? { maxHeight: `calc(${rows} * 30px + 2px)` } : undefined}
+      style={{
+        ...(rows ? { maxHeight: `calc(${rows} * 30px + 2px)` } : {}),
+        ...style
+      }}
       {...rest}
     >
       {children}
-    </div>
-  ),
+    </Component>
+  )
 );
+Tabs.displayName = 'Tabs';
 ```
 
 **Tab component:**
 ```tsx
+const tabVariants = cva(
+  'border-raised px-3 py-1 bg-material text-material-text font-sans focus-visible:focus-outline',
+  {
+    variants: {
+      selected: {
+        true: 'border-sunken -mb-[2px] border-b-canvas bg-canvas'
+      },
+      disabled: {
+        true: 'text-disabled'
+      }
+    },
+    defaultVariants: {
+      selected: false,
+      disabled: false
+    }
+  }
+);
+
 export const Tab = forwardRef<HTMLButtonElement, TabProps>(
-  ({ selected = false, disabled = false, children, className, ...rest }, ref) => (
-    <button
+  ({ selected, disabled, children, className, as: Component = 'button', ...rest }, ref) => (
+    <Component
       ref={ref}
-      disabled={disabled}
-      className={clsx(
-        "border-raised px-3 py-1 bg-material text-material-text font-sans",
-        "focus-visible:focus-outline",
-        selected && "border-sunken -mb-[2px] border-b-canvas bg-canvas",
-        disabled && "text-disabled",
-        className,
-      )}
+      disabled={disabled ?? undefined}
+      className={cn(tabVariants({ selected, disabled }), className)}
       {...rest}
     >
       {children}
-    </button>
-  ),
+    </Component>
+  )
 );
+Tab.displayName = 'Tab';
 ```
 
 **TabBody component:**
 ```tsx
 export const TabBody = forwardRef<HTMLDivElement, TabBodyProps>(
-  ({ children, className, ...rest }, ref) => (
-    <div ref={ref} className={clsx("border-sunken bg-canvas p-4", className)} {...rest}>
+  ({ children, className, as: Component = 'div', ...rest }, ref) => (
+    <Component
+      ref={ref}
+      className={cn('border-sunken bg-canvas p-4', className)}
+      {...rest}
+    >
       {children}
-    </div>
-  ),
+    </Component>
+  )
 );
+TabBody.displayName = 'TabBody';
 ```
-
-**Key decisions:**
-- Selected tab: `-mb-[2px]` negative margin to overlap the border, `border-b-canvas` to blend with content. This is the classic tab UI trick.
-- Multi-row (`rows` prop): Controls `maxHeight` via inline style. Complex multi-row layout kept as-is from original.
 
 ### 3. MenuList (`src/MenuList/`)
 
@@ -142,44 +186,61 @@ export const TabBody = forwardRef<HTMLDivElement, TabBodyProps>(
 **MenuList container:**
 ```tsx
 export const MenuList = forwardRef<HTMLUListElement, MenuListProps>(
-  ({ fullWidth, inline, shadow = true, children, className, ...rest }, ref) => (
-    <ul
+  ({ fullWidth, inline, shadow = true, children, className, as: Component = 'ul', ...rest }, ref) => (
+    <Component
       ref={ref}
-      className={clsx(
-        "list-none p-[2px] m-0 border-window bg-material",
-        shadow && "shadow-[var(--shadow-out)]",
-        inline && "inline-flex",
-        fullWidth && "w-full",
-        className,
+      className={cn(
+        'list-none p-[2px] m-0 border-window bg-material',
+        shadow && 'shadow-[var(--shadow-out)]',
+        inline && 'inline-flex',
+        fullWidth && 'w-full',
+        className
       )}
       {...rest}
     >
       {children}
-    </ul>
-  ),
+    </Component>
+  )
 );
+MenuList.displayName = 'MenuList';
 ```
 
 **MenuListItem:**
 ```tsx
+const menuListItemVariants = cva(
+  'flex items-center px-2 py-1 cursor-pointer text-material-text hover:bg-hover-background hover:text-material-text-invert',
+  {
+    variants: {
+      disabled: {
+        true: 'text-disabled pointer-events-none'
+      },
+      primary: {
+        true: 'font-bold'
+      },
+      square: {
+        true: 'aspect-square'
+      }
+    },
+    defaultVariants: {
+      disabled: false,
+      primary: false,
+      square: false
+    }
+  }
+);
+
 export const MenuListItem = forwardRef<HTMLLIElement, MenuListItemProps>(
-  ({ disabled, square, primary, size, children, className, ...rest }, ref) => (
-    <li
+  ({ disabled, square, primary, children, className, as: Component = 'li', ...rest }, ref) => (
+    <Component
       ref={ref}
-      className={clsx(
-        "flex items-center px-2 py-1 cursor-pointer text-material-text",
-        "hover:bg-hover-background hover:text-material-text-invert",
-        disabled && "text-disabled pointer-events-none",
-        primary && "font-bold",
-        square && "aspect-square",
-        className,
-      )}
+      className={cn(menuListItemVariants({ disabled, square, primary }), className)}
       {...rest}
     >
       {children}
-    </li>
-  ),
+    </Component>
+  )
 );
+MenuListItem.displayName = 'MenuListItem';
 ```
 
 ### 4. AppBar
@@ -187,39 +248,48 @@ export const MenuListItem = forwardRef<HTMLLIElement, MenuListItemProps>(
 **Original:** 45 lines. `<header>` with border + positioning.
 
 ```tsx
+const appBarVariants = cva(
+  'bg-material shadow-[var(--shadow-out)] p-[2px] flex items-center',
+  {
+    variants: {
+      position: {
+        fixed: 'fixed bottom-0 left-0 right-0 z-50',
+        static: 'static',
+        sticky: 'sticky bottom-0'
+      }
+    },
+    defaultVariants: {
+      position: 'fixed'
+    }
+  }
+);
+
 export const AppBar = forwardRef<HTMLElement, AppBarProps>(
-  ({ position = "fixed", children, className, ...rest }, ref) => (
-    <header
+  ({ position, children, className, as: Component = 'header', ...rest }, ref) => (
+    <Component
       ref={ref}
-      className={clsx(
-        "bg-material shadow-[var(--shadow-out)] p-[2px] flex items-center",
-        position === "fixed" && "fixed bottom-0 left-0 right-0 z-50",
-        position === "static" && "static",
-        position === "sticky" && "sticky bottom-0",
-        className,
-      )}
+      className={cn(appBarVariants({ position }), className)}
       {...rest}
     >
       {children}
-    </header>
-  ),
+    </Component>
+  )
 );
+AppBar.displayName = 'AppBar';
 ```
 
 ### 5. Table (`src/Table/`)
 
 **Original:** 45 lines + 6 sub-component files. Standard table with Win95 borders.
 
-Each sub-component is a thin styled element:
-
-| Sub-component | Tailwind |
-|---------------|----------|
-| `Table` | `<table className="border-sunken border-collapse w-full bg-canvas">` |
-| `TableHead` | `<thead className="bg-material">` |
-| `TableBody` | `<tbody>` |
-| `TableRow` | `<tr className="border-b border-border-light">` |
-| `TableHeadCell` | `<th className="border-raised px-2 py-1 text-left font-bold text-material-text">` |
-| `TableDataCell` | `<td className="px-2 py-1 text-material-text">` |
+| Sub-component | Tailwind (Shadcn-style) |
+|---------------|-------------------------|
+| `Table` | `cn('border-sunken border-collapse w-full bg-canvas', className)` |
+| `TableHead` | `cn('bg-material', className)` |
+| `TableBody` | `className` |
+| `TableRow` | `cn('border-b border-border-light', className)` |
+| `TableHeadCell` | `cn('border-raised px-2 py-1 text-left font-bold text-material-text', className)` |
+| `TableDataCell` | `cn('px-2 py-1 text-material-text', className)` |
 
 ### 6. Tooltip
 
@@ -227,7 +297,7 @@ Each sub-component is a thin styled element:
 
 ```tsx
 export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
-  ({ children, text, delay = 1000, className, ...rest }, ref) => {
+  ({ children, text, delay = 1000, className, as: Component = 'div', ...rest }, ref) => {
     const [show, setShow] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -235,17 +305,18 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     const hideTooltip = () => { clearTimeout(timerRef.current); setShow(false); };
 
     return (
-      <div ref={ref} className={clsx("relative inline-block", className)} onMouseEnter={showTooltip} onMouseLeave={hideTooltip} {...rest}>
+      <Component ref={ref} className={cn('relative inline-block', className)} onMouseEnter={showTooltip} onMouseLeave={hideTooltip} {...rest}>
         {children}
         {show && (
           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 border-window bg-tooltip px-3 py-2 text-sm whitespace-nowrap shadow-[var(--shadow-tooltip)]">
             {text}
           </div>
         )}
-      </div>
+      </Component>
     );
   },
 );
+Tooltip.displayName = 'Tooltip';
 ```
 
 ### Files

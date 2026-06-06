@@ -28,52 +28,84 @@ interface FrameProps extends CommonStyledProps {
   // Deprecated but still accepted:
   // "outside" | "inside" | "well" -- map to existing variants
   children?: React.ReactNode;
+  shadow?: boolean;
 }
 ```
 
 Where `CommonStyledProps` includes `as` (polymorphic) and `className`.
 
-### Implementation
+### Implementation (Shadcn-style)
 
 ```tsx
-import clsx from "clsx";
-import { forwardRef } from "react";
+import React, { forwardRef } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../common/utils';
+import { CommonStyledProps } from '../types';
 
-const variantClassMap: Record<string, string> = {
-  window: "border-window",
-  button: "border-raised",
-  field: "border-field bg-canvas",
-  status: "border-sunken",
-  // Deprecated -- map to closest equivalent
-  outside: "border-raised",
-  inside: "border-sunken",
-  well: "border-sunken",
-};
+const frameVariants = cva('relative border-w95', {
+  variants: {
+    variant: {
+      window: 'border-window',
+      button: 'border-raised',
+      field: 'border-field bg-canvas text-canvas-text',
+      status: 'border-sunken',
+      // Deprecated -- map to closest equivalent
+      outside: 'border-window',
+      inside: 'border-sunken',
+      well: 'border-sunken'
+    },
+    shadow: {
+      true: 'shadow-tooltip'
+    }
+  },
+  defaultVariants: {
+    variant: 'window',
+    shadow: false
+  }
+});
 
-export const Frame = forwardRef<HTMLDivElement, FrameProps>(
-  ({ variant = "window", as: Component = "div", className, ...rest }, ref) => {
+export type FrameProps = React.HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof frameVariants> &
+  CommonStyledProps & {
+    children?: React.ReactNode;
+  };
+
+const Frame = forwardRef<HTMLDivElement, FrameProps>(
+  (
+    {
+      children,
+      shadow,
+      variant,
+      as: Component = 'div',
+      className,
+      ...otherProps
+    },
+    ref
+  ) => {
     return (
       <Component
         ref={ref}
-        className={clsx(
-          "border-w95",
-          variantClassMap[variant],
-          className,
-        )}
-        {...rest}
-      />
+        className={cn(frameVariants({ variant, shadow }), className)}
+        {...otherProps}
+      >
+        {children}
+      </Component>
     );
-  },
+  }
 );
-Frame.displayName = "Frame";
+
+Frame.displayName = 'Frame';
+
+export { Frame, frameVariants };
 ```
 
 ### Key design decisions
 
-1. **No `styled()` needed** -- the variant→CSS class mapping replaces `createBorderStyles({style: variant})` entirely.
+1. **Adopting CVA** -- Using `class-variance-authority` for variant management, following Shadcn conventions.
 2. **`as` prop** via React's polymorphic pattern -- identical to original.
 3. **`bg-canvas` class** added for `field` variant -- matches original's `background: theme.canvas` for input fields.
 4. **Border colors come from CSS custom properties** set by the `data-theme` attribute -- no theme context needed.
+5. **Preserve `shadow` prop** -- The undocumented `shadow` prop is preserved and mapped to `shadow-tooltip`.
 
 ### Files
 
@@ -88,7 +120,7 @@ src/Frame/
 Modify:
 
 ```
-src/index.ts    # Add `export { Frame, FrameProps } from "./Frame/Frame";`
+src/index.ts    # Add `export { Frame, FrameProps, frameVariants } from "./Frame/Frame";`
 ```
 
 Delete:
@@ -101,12 +133,12 @@ src/Frame/Frame.stories.tsx # Will be re-added in Task 11
 
 ## Acceptance criteria
 
-- [ ] `<Frame variant="window">` renders with `border-window` (raised outer bevel)
-- [ ] `<Frame variant="field">` renders with `border-field` (sunken field) + `bg-canvas`
-- [ ] `<Frame variant="status">` renders with `border-sunken`
-- [ ] `<Frame variant="button">` renders with `border-raised`
-- [ ] `as="section"` renders a `<section>` element (polymorphic)
-- [ ] `className` merges correctly with variant classes via `clsx`
-- [ ] Visual output matches original `react95@4` Frame component exactly
-- [ ] `npm run build` passes
-- [ ] `npm run lint` passes
+- [x] `<Frame variant="window">` renders with `border-window` (raised outer bevel)
+- [x] `<Frame variant="field">` renders with `border-field` (sunken field) + `bg-canvas`
+- [x] `<Frame variant="status">` renders with `border-sunken`
+- [x] `<Frame variant="button">` renders with `border-raised`
+- [x] `as="section"` renders a `<section>` element (polymorphic)
+- [x] `className` merges correctly with variant classes via `cn`
+- [x] Visual output matches original `react95@4` Frame component exactly
+- [x] `npm run build` passes
+- [x] `npm run lint` passes

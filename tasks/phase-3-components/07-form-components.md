@@ -20,73 +20,115 @@ Form components are the second tier of complexity after Button. They share borde
 
 **Tailwind implementation:**
 ```tsx
-export const TextInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, TextInputProps>(
-  ({ variant = "default", multiline = false, fullWidth = false, shadow = false, className, ...rest }, ref) => {
-    const Component = multiline ? "textarea" : "input";
-    const variantClass = variant === "flat" ? "bg-flat border-0" : "border-field bg-canvas";
+import React, { forwardRef } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../common/utils';
+import { CommonStyledProps } from '../types';
+
+const textInputVariants = cva(
+  'px-2 py-1 font-sans text-material-text outline-none text-disabled-disabled',
+  {
+    variants: {
+      variant: {
+        default: 'border-field bg-canvas',
+        flat: 'bg-flat border-0'
+      },
+      fullWidth: {
+        true: 'w-full'
+      },
+      shadow: {
+        true: 'custom-scrollbar'
+      }
+    },
+    defaultVariants: {
+      variant: 'default',
+      fullWidth: false,
+      shadow: false
+    }
+  }
+);
+
+export type TextInputProps = (
+  | React.InputHTMLAttributes<HTMLInputElement>
+  | React.TextareaHTMLAttributes<HTMLTextAreaElement>
+) &
+  VariantProps<typeof textInputVariants> &
+  CommonStyledProps & {
+    multiline?: boolean;
+  };
+
+export const TextInput = forwardRef<
+  HTMLInputElement | HTMLTextAreaElement,
+  TextInputProps
+>(
+  (
+    { variant, multiline, fullWidth, shadow, className, as, ...rest },
+    ref
+  ) => {
+    const Component = as || (multiline ? 'textarea' : 'input');
 
     return (
       <Component
         ref={ref as any}
-        className={clsx(
-          "px-2 py-1 font-sans text-material-text outline-none",
-          "text-disabled-disabled", // applies when :disabled
-          variantClass,
-          fullWidth && "w-full",
-          shadow && "custom-scrollbar",
-          className,
+        className={cn(
+          textInputVariants({ variant, fullWidth, shadow }),
+          className
         )}
         {...rest}
       />
     );
-  },
+  }
 );
+TextInput.displayName = 'TextInput';
 ```
-
-**Key decisions:**
-- Discriminated union types ported from original (TypeScript-only, no SC dependency)
-- `multiline` variant uses `<textarea>` with `resize: none` default (original behavior)
-- `shadow` prop enables custom scrollbar (imports `StyledScrollView` equivalent)
 
 ### 2. SwitchBase (shared Radio/Checkbox base)
 
 **Original:** `src/common/SwitchBase.ts`. Shared styled-components across Radio and Checkbox.
 
-**Tailwind:** Extract into a reusable component:
-
 ```tsx
 // src/common/SwitchBase.tsx
-interface SwitchBaseProps {
+import React, { forwardRef } from 'react';
+import { cn } from './utils';
+
+export interface SwitchBaseProps extends React.HTMLAttributes<HTMLLabelElement> {
   checked?: boolean;
   disabled?: boolean;
-  indeterminate?: boolean; // checkbox only
   label?: string;
-  className?: string;
-  children: React.ReactNode; // the visual indicator (radio circle / checkbox square)
-  inputProps: React.InputHTMLAttributes<HTMLInputElement>;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  children: React.ReactNode;
 }
 
 export const SwitchBase = forwardRef<HTMLInputElement, SwitchBaseProps>(
   ({ checked, disabled, label, className, children, inputProps, ...rest }, ref) => (
-    <label className={clsx("inline-flex items-center gap-2 cursor-pointer", disabled && "pointer-events-none", className)} {...rest}>
-      {/* Hidden native input for accessibility */}
+    <label
+      className={cn(
+        'inline-flex items-center gap-2 cursor-pointer',
+        disabled && 'pointer-events-none',
+        className
+      )}
+      {...rest}
+    >
       <input
         ref={ref}
-        type="checkbox" // radio overrides this
+        type="checkbox"
         checked={checked}
         disabled={disabled}
         className="sr-only peer"
         {...inputProps}
       />
-      {/* Visual indicator -- responds to peer focus */}
       <span className="w-5 h-5 inline-flex items-center justify-center peer-focus-visible:focus-outline">
         {children}
       </span>
-      {/* Label text */}
-      {label && <span className={clsx("select-none", disabled && "text-disabled")}>{label}</span>}
+      {label && (
+        <span className={cn('select-none', disabled && 'text-disabled')}>
+          {label}
+        </span>
+      )}
     </label>
-  ),
+  )
 );
+SwitchBase.displayName = 'SwitchBase';
 ```
 
 ### 3. Radio
@@ -94,21 +136,38 @@ export const SwitchBase = forwardRef<HTMLInputElement, SwitchBaseProps>(
 **Original:** 146 lines. Uses `SwitchBase`. Circle indicator with center dot when checked.
 
 ```tsx
+import React, { forwardRef } from 'react';
+import { cn } from '../common/utils';
+import { SwitchBase } from '../common/SwitchBase';
+
+export type RadioProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  label?: string;
+};
+
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   ({ checked, disabled, label, className, ...rest }, ref) => (
-    <SwitchBase ref={ref} checked={checked} disabled={disabled} label={label} className={className} inputProps={{ type: "radio", ...rest }}>
-      {/* Radio circle */}
-      <span className={clsx(
-        "w-full h-full rounded-full border-w95 border-field bg-canvas",
-        "flex items-center justify-center",
-      )}>
+    <SwitchBase
+      ref={ref}
+      checked={checked}
+      disabled={disabled}
+      label={label}
+      className={className}
+      inputProps={{ type: 'radio', ...rest }}
+    >
+      <span
+        className={cn(
+          'w-full h-full rounded-full border-w95 border-field bg-canvas',
+          'flex items-center justify-center'
+        )}
+      >
         {checked && (
           <span className="w-[9px] h-[9px] rounded-full bg-material-text" />
         )}
       </span>
     </SwitchBase>
-  ),
+  )
 );
+Radio.displayName = 'Radio';
 ```
 
 ### 4. Checkbox
@@ -116,26 +175,48 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
 **Original:** 200 lines. Uses `SwitchBase`. Square indicator with checkmark (✓) or indeterminate dash.
 
 ```tsx
+import React, { forwardRef } from 'react';
+import { cn } from '../common/utils';
+import { SwitchBase } from '../common/SwitchBase';
+
+export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  label?: string;
+  indeterminate?: boolean;
+};
+
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ checked, disabled, indeterminate, label, className, ...rest }, ref) => (
-    <SwitchBase ref={ref} checked={checked} disabled={disabled} indeterminate={indeterminate} label={label} className={className} inputProps={{ type: "checkbox", ...rest }}>
-      <span className={clsx(
-        "w-full h-full border-field bg-canvas",
-        "flex items-center justify-center",
-        checked && "bg-hatched",
-      )}>
+    <SwitchBase
+      ref={ref}
+      checked={checked}
+      disabled={disabled}
+      label={label}
+      className={className}
+      inputProps={{ type: 'checkbox', ...rest }}
+    >
+      <span
+        className={cn(
+          'w-full h-full border-field bg-canvas',
+          'flex items-center justify-center',
+          checked && 'bg-hatched'
+        )}
+      >
         {checked && !indeterminate && (
           <svg viewBox="0 0 14 14" className="w-3 h-3" aria-hidden="true">
-            <path d="M2 7 L5 10 L12 3" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path
+              d="M2 7 L5 10 L12 3"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+            />
           </svg>
         )}
-        {indeterminate && (
-          <span className="w-[9px] h-[2px] bg-material-text" />
-        )}
+        {indeterminate && <span className="w-[9px] h-[2px] bg-material-text" />}
       </span>
     </SwitchBase>
-  ),
+  )
 );
+Checkbox.displayName = 'Checkbox';
 ```
 
 ### 5. GroupBox
@@ -143,12 +224,21 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 **Original:** 69 lines. `<fieldset>` + `<legend>`. Label truncated > 80% width.
 
 ```tsx
+import React, { forwardRef } from 'react';
+import { cn } from '../common/utils';
+import { CommonStyledProps } from '../types';
+
+export type GroupBoxProps = React.FieldsetHTMLAttributes<HTMLFieldSetElement> &
+  CommonStyledProps & {
+    label?: React.ReactNode;
+  };
+
 export const GroupBox = forwardRef<HTMLFieldSetElement, GroupBoxProps>(
-  ({ label, disabled, children, className, ...rest }, ref) => (
-    <fieldset
+  ({ label, disabled, children, className, as: Component = 'fieldset', ...rest }, ref) => (
+    <Component
       ref={ref}
       disabled={disabled}
-      className={clsx("border-grouping border-2 p-3 pt-4 relative", className)}
+      className={cn('border-grouping border-2 p-3 pt-4 relative', className)}
       {...rest}
     >
       {label && (
@@ -156,87 +246,112 @@ export const GroupBox = forwardRef<HTMLFieldSetElement, GroupBoxProps>(
           {label}
         </legend>
       )}
-      <div className={clsx(disabled && "text-disabled pointer-events-none")}>
+      <div className={cn(disabled && 'text-disabled pointer-events-none')}>
         {children}
       </div>
-    </fieldset>
-  ),
+    </Component>
+  )
 );
+GroupBox.displayName = 'GroupBox';
 ```
 
 ### 6. Select
 
 **Original:** 291 lines across 5 files. Complex state management via `useSelectState` hook.
 
-**Approach:**
-- Port the `useSelectState` hook verbatim (pure logic, no styled-components)
-- Style the trigger button and dropdown menu with Tailwind border classes
-- Keep the native `<select>` fallback via `SelectNative`
-- Dropdown: absolute-positioned `<div>` with `border-window`, list items with hover `bg-hover-background text-material-text-invert`
-
 ```tsx
-// Core structure (simplified)
-<div className="relative inline-block">
-  <button className={clsx("border-raised bg-material px-3 py-1 w-full flex items-center justify-between", ...)}>
-    <span>{selectedLabel}</span>
-    <span className="ml-2">▼</span>
-  </button>
-  {open && (
-    <div className="absolute top-full left-0 z-50 min-w-full border-window bg-material mt-[2px]">
-      {options.map(opt => (
-        <div
-          key={opt.value}
-          className={clsx("px-3 py-1 cursor-pointer", opt.selected && "bg-hover-background text-material-text-invert")}
-          onClick={() => selectOption(opt)}
+import React, { forwardRef } from 'react';
+import { cn } from '../common/utils';
+import { CommonStyledProps } from '../types';
+// ... other imports
+
+export const Select = forwardRef<HTMLDivElement, SelectProps>(
+  ({ options, value, onChange, className, ...rest }, ref) => {
+    // Ported logic using useSelectState...
+
+    return (
+      <div ref={ref} className={cn('relative inline-block', className)} {...rest}>
+        <button
+          className={cn(
+            'border-raised bg-material px-3 py-1 w-full flex items-center justify-between'
+          )}
         >
-          {opt.label}
-        </div>
-      ))}
-    </div>
-  )}
-</div>
+          <span>{selectedLabel}</span>
+          <span className="ml-2">▼</span>
+        </button>
+        {open && (
+          <div className="absolute top-full left-0 z-50 min-w-full border-window bg-material mt-[2px]">
+            {options.map(opt => (
+              <div
+                key={opt.value}
+                className={cn(
+                  'px-3 py-1 cursor-pointer',
+                  opt.selected && 'bg-hover-background text-material-text-invert'
+                )}
+                onClick={() => selectOption(opt)}
+              >
+                {opt.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+Select.displayName = 'Select';
 ```
 
 ### 7. Slider
 
 **Original:** 615 lines (largest component). Ported from MUI. Keyboard/mouse/touch input tracking, marks, orientation.
 
-**Approach:**
-- Port the complex logic hooks (`useControlledOrUncontrolled`, `useEventCallback`, `useForkRef`, `useIsFocusVisible`) -- already ported in Task 01
-- Style the track, thumb, and marks with Tailwind
-- Track: `h-1 bg-material border-field` (horizontal) or `w-1 bg-material border-field` (vertical)
-- Thumb: `w-5 h-5 bg-material border-raised cursor-pointer` (draggable)
-- Active track fill: `bg-header-background`
-- Marks: small dots/lines at step intervals
-
 ```tsx
-// Track structure
-<div className={clsx("relative rounded-full", orientation === "horizontal" ? "h-1 w-full" : "w-1 h-full")}>
-  {/* Filled portion */}
-  <div className={clsx("absolute bg-header-background", orientation === "horizontal" ? "h-full" : "w-full")}
-    style={fillStyle} />
-  {/* Thumb */}
-  <div
-    ref={thumbRef}
-    className={clsx("absolute border-raised bg-material cursor-pointer", "w-5 h-5 -translate-x-1/2 -translate-y-1/2")}
-    style={thumbStyle}
-    role="slider"
-    tabIndex={0}
-    {...keyboardHandlers}
-  />
-  {/* Marks */}
-  {marks?.map(mark => (
-    <div key={mark.value} className="absolute w-[3px] h-[3px] bg-material-text rounded-full" style={markStyle(mark)} />
-  ))}
-</div>
+import React, { forwardRef } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../common/utils';
+import { CommonStyledProps } from '../types';
+
+const sliderVariants = cva('relative rounded-full', {
+  variants: {
+    orientation: {
+      horizontal: 'h-1 w-full',
+      vertical: 'w-1 h-full'
+    }
+  },
+  defaultVariants: {
+    orientation: 'horizontal'
+  }
+});
+
+export const Slider = forwardRef<HTMLDivElement, SliderProps>(
+  ({ orientation, className, ...rest }, ref) => {
+    // Complex logic ported from original...
+
+    return (
+      <div className={cn(sliderVariants({ orientation }), className)} {...rest}>
+        {/* Track fill */}
+        <div
+          className={cn(
+            'absolute bg-header-background',
+            orientation === 'horizontal' ? 'h-full' : 'w-full'
+          )}
+          style={fillStyle}
+        />
+        {/* Thumb */}
+        <div
+          ref={thumbRef}
+          className="absolute border-raised bg-material cursor-pointer w-5 h-5 -translate-x-1/2 -translate-y-1/2"
+          style={thumbStyle}
+          role="slider"
+          tabIndex={0}
+        />
+      </div>
+    );
+  }
+);
+Slider.displayName = 'Slider';
 ```
-
-### Cross-component dependencies
-
-- `TextInput` imports custom scrollbar (`custom-scrollbar` from Task 03)
-- `TextInput` with `multiline` uses `<textarea>` -- identical to original pattern
-- `Radio` and `Checkbox` share `SwitchBase` component
-- `Slider` imports hooks already ported in Task 01
 
 ### Files
 
