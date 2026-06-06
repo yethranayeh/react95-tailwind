@@ -9,7 +9,7 @@
 | Phase | Name       | Tasks  | Status     |
 | ----- | ---------- | ------ | ---------- |
 | 1     | Scaffold   | 01-02  | ⬜ Pending |
-| 2     | Primitives | 03-05  | 🔄 In Progress |
+| 2     | Primitives | 03-05  | ⬜ Pending |
 | 3     | Components | 06-09  | ⬜ Pending |
 | 4     | Build      | 10-12  | ⬜ Pending |
 
@@ -26,7 +26,7 @@
 
 | Task | File                                                              | Description                                         | Deps | Status |
 | ---- | ----------------------------------------------------------------- | --------------------------------------------------- | ---- | ------ |
-| 03   | [03-style-engine.md](phase-2-primitives/03-style-engine.md)       | Rewrite `createBorderStyles`, `createHatchedBackground`, `focusOutline`, `createScrollbars`, `createDisabledTextStyles` as Tailwind utility classes and custom properties. | 01, 02 | ✅     |
+| 03   | [03-style-engine.md](phase-2-primitives/03-style-engine.md)       | Rewrite `createBorderStyles`, `createHatchedBackground`, `focusOutline`, `createScrollbars`, `createDisabledTextStyles` as Tailwind utility classes and custom properties. | 01, 02 | ⬜     |
 | 04   | [04-frame.md](phase-2-primitives/04-frame.md)                     | `Frame` component -- the base building block. Recreate 3D bevel borders using the style engine. | 03 | ⬜     |
 | 05   | [05-button.md](phase-2-primitives/05-button.md)                   | `Button` component -- the most complex primitive. 4 variants (default/raised/flat/thin), 3 sizes, active/disabled/primary states. | 04 | ⬜     |
 

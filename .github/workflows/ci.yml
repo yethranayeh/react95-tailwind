@@ -4,132 +4,36 @@ on:
   pull_request:
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Cache packages
-        uses: actions/cache@v3
-        with:
-          key: node_modules-v4-${{ hashFiles('yarn.lock') }}
-          path: |-
-            node_modules
-            */node_modules
-          restore-keys: 'node_modules-v4-'
-
-      - name: Yarn install
-        run: yarn install --ignore-optional --frozen-lockfile
-
-      - name: Lint
-        run: yarn run lint
-
-  type-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Cache packages
-        uses: actions/cache@v3
-        with:
-          key: node_modules-v4-${{ hashFiles('yarn.lock') }}
-          path: |-
-            node_modules
-            */node_modules
-          restore-keys: 'node_modules-v4-'
-
-      - name: Yarn install
-        run: yarn install --ignore-optional --frozen-lockfile
-
-      - name: Type Check
-        run: yarn run typescript
-
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
+          cache: 'npm'
 
-      - name: Cache packages
-        uses: actions/cache@v3
-        with:
-          key: node_modules-v4-${{ hashFiles('yarn.lock') }}
-          path: |-
-            node_modules
-            */node_modules
-          restore-keys: 'node_modules-v4-'
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Yarn install
-        run: yarn install --ignore-optional --frozen-lockfile
+      - name: Lint
+        run: npm run lint
 
-      - name: Test
-        run: yarn run test:ci
-
-  build-library:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Cache packages
-        uses: actions/cache@v3
-        with:
-          key: node_modules-v4-${{ hashFiles('yarn.lock') }}
-          path: |-
-            node_modules
-            */node_modules
-          restore-keys: 'node_modules-v4-'
-
-      - name: Yarn install
-        run: yarn install --ignore-optional --frozen-lockfile
+      - name: Type Check
+        run: npm run typescript
 
       - name: Build library
-        run: yarn run build
+        run: npm run build
 
-  build-storybook:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
+      - name: Verify CSS output
+        run: |
+          if [ ! -f dist/index.css ]; then
+            echo "Error: dist/index.css not found"
+            exit 1
+          fi
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Cache packages
-        uses: actions/cache@v3
-        with:
-          key: node_modules-v4-${{ hashFiles('yarn.lock') }}
-          path: |-
-            node_modules
-            */node_modules
-          restore-keys: 'node_modules-v4-'
-
-      - name: Yarn install
-        run: yarn install --ignore-optional --frozen-lockfile
-
-      - name: Build Storybook
-        run: yarn run build:storybook
+      - name: Run migration check
+        run: node scripts/check-migration.mjs

@@ -1,11 +1,8 @@
 <h1 align="center">React95</h1>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/react95"><img src="https://flat.badgen.net/npm/dt/react95" alt="NPM" /></a>
-  <a href="https://github.com/arturbien/React95/actions/workflows/release.yml"><img src="https://github.com/arturbien/React95/actions/workflows/release.yml/badge.svg" alt="release status" /></a>
-  <a href="https://www.npmjs.com/package/react95"><img src="https://flat.badgen.net/npm/v/react95" alt="React95 version" /></a>
-  <a href="https://www.npmjs.com/package/react95"><img src="https://flat.badgen.net/npm/license/react95" alt="React95 license" /></a>
-  <a href="https://twitter.com/intent/follow?screen_name=react95_io"><img src="https://img.shields.io/twitter/follow/react95_io" alt="React95 license" /></a>
+  <a href="https://github.com/yethranayeh/react95-tailwind/actions/workflows/ci.yml"><img src="https://github.com/yethranayeh/react95-tailwind/actions/workflows/ci.yml/badge.svg" alt="CI status" /></a>
+  <a href="https://github.com/yethranayeh/react95-tailwind/actions/workflows/release.yml"><img src="https://github.com/yethranayeh/react95-tailwind/actions/workflows/release.yml/badge.svg" alt="release status" /></a>
 </p>
 <h3 align="center">
   <a href="https://storybook.react95.io/?path=/story/window--default">Components</a> -
@@ -18,11 +15,6 @@
   <b>Refreshed</b> Windows95 UI components for your modern React apps. <br /> Built with styled-components 💅</p>
 
 ![hero](https://user-images.githubusercontent.com/28541613/81947711-28b05580-9601-11ea-964a-c3a6de998496.png)
-
-### Support
-
-- [Become a backer or sponsor on Patreon](https://www.patreon.com/arturbien)
-- [One-time donation via PayPal](https://www.paypal.me/react95)
 
 ## Getting Started
 
@@ -85,9 +77,6 @@ const App = () => (
 export default App;
 ```
 
-### Submit your project
-
-Apps built with React95 will be featured on the official React95 [website](https://react95.io) 🤟🏻
 
 ### Contributing
 
