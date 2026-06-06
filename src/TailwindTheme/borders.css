@@ -1,0 +1,49 @@
+.border-w95 {
+  border-width: 2px;
+  border-style: solid;
+}
+
+/* Raised bevel: button, window, menu */
+.border-raised {
+  border-color: var(--color-border-lightest);
+  box-shadow: var(--shadow-out);
+}
+
+/* Sunken bevel: active button, field */
+.border-sunken {
+  border-color: var(--color-border-darkest);
+  box-shadow: var(--shadow-in);
+}
+
+.border-thin-raised {
+  border: 1px solid;
+  border-color: var(--color-border-lightest) var(--color-border-darkest) var(--color-border-darkest) var(--color-border-lightest);
+}
+
+.border-thin-sunken {
+  border: 1px solid;
+  border-color: var(--color-border-darkest) var(--color-border-lightest) var(--color-border-lightest) var(--color-border-darkest);
+}
+
+.border-field {
+  border: 2px solid;
+  border-color: var(--color-border-dark) var(--color-border-lightest) var(--color-border-lightest) var(--color-border-dark);
+  box-shadow: inset 1px 1px 0px 1px var(--color-border-darkest);
+}
+
+.border-grouping {
+  border: 2px solid;
+  border-color: var(--color-border-dark) var(--color-border-lightest) var(--color-border-lightest) var(--color-border-dark);
+}
+
+.border-window {
+  border-color: var(--color-border-light);
+  box-shadow: inset 1px 1px 0px 1px var(--color-border-lightest),
+    inset -1px -1px 0 1px var(--color-border-dark),
+    1px 1px 0 0px var(--color-border-darkest);
+}
+
+.border-status {
+  border: 2px solid;
+  border-color: var(--color-border-dark) var(--color-border-lightest) var(--color-border-lightest) var(--color-border-dark);
+}

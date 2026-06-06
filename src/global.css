@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "./TailwindTheme/tokens.css";
+@import "./TailwindTheme/borders.css";
+@import "./TailwindTheme/components.css";
 
 @theme {
   --color-anchor: var(--t-anchor);

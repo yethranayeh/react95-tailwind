@@ -1,0 +1,96 @@
+/* Hatched background for disabled/active states */
+.bg-hatched {
+  background-image:
+    linear-gradient(45deg, var(--color-material-dark) 25%, transparent 25%, transparent 75%, var(--color-material-dark) 75%),
+    linear-gradient(45deg, var(--color-material-dark) 25%, transparent 25%, transparent 75%, var(--color-material-dark) 75%);
+  background-color: var(--color-border-lightest);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
+}
+
+/* Dotted focus ring */
+.focus-outline:focus-visible {
+  outline: 2px dotted var(--color-material-text);
+  outline-offset: -4px;
+}
+
+/* Disabled text effect */
+.text-disabled {
+  color: var(--color-material-text-disabled);
+  text-shadow: 1px 1px var(--color-material-text-disabled-shadow);
+}
+
+/* Flat variant backgrounds */
+.bg-flat {
+  background: var(--color-flat-light);
+}
+
+.bg-flat-disabled {
+  background: var(--color-canvas);
+}
+
+/* Custom Scrollbars */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-material) var(--color-canvas);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 26px;
+  height: 26px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-image:
+    linear-gradient(45deg, var(--color-material) 25%, transparent 25%, transparent 75%, var(--color-material) 75%),
+    linear-gradient(45deg, var(--color-material) 25%, transparent 25%, transparent 75%, var(--color-material) 75%);
+  background-color: var(--color-border-lightest);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-material);
+  border: 2px solid var(--color-border-lightest);
+  border-right-color: var(--color-border-darkest);
+  border-bottom-color: var(--color-border-darkest);
+  box-shadow: inset 1px 1px 0px 1px var(--color-border-light),
+    inset -1px -1px 0 1px var(--color-border-dark);
+}
+
+.custom-scrollbar::-webkit-scrollbar-button {
+  background-color: var(--color-material);
+  display: block;
+  height: 26px;
+  width: 26px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 0 0;
+  border: 2px solid var(--color-border-lightest);
+  border-right-color: var(--color-border-darkest);
+  border-bottom-color: var(--color-border-darkest);
+  box-shadow: inset 1px 1px 0px 1px var(--color-border-light),
+    inset -1px -1px 0 1px var(--color-border-dark);
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:active {
+  background-position: 0 1px;
+  border-color: var(--color-border-darkest) var(--color-border-lightest) var(--color-border-lightest) var(--color-border-darkest);
+  box-shadow: inset 1px 1px 0px 1px var(--color-border-dark);
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjI2IiB3aWR0aD0iMjYiIHZpZXdCb3g9IjAgMCAyNiAyNiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0cmFuc2Zvcm09InJvdGF0ZSgxODAgMTMgMTMpIj48cG9seWdvbiBmaWxsPSJibGFjayIgcG9pbnRzPSI2LDEwIDIwLDEwIDEzLDE3Ii8+PC9zdmc+");
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjI2IiB3aWR0aD0iMjYiIHZpZXdCb3g9IjAgMCAyNiAyNiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0cmFuc2Zvcm09InJvdGF0ZSgwIDEzIDEzKSI+PHBvbHlnb24gZmlsbD0iYmxhY2siIHBvaW50cz0iNiwxMCAyMCwxMCAxMywxNyIvPjwvc3ZnPg==");
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjI2IiB3aWR0aD0iMjYiIHZpZXdCb3g9IjAgMCAyNiAyNiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0cmFuc2Zvcm09InJvdGF0ZSg5MCAxMyAxMykiPjxwb2x5Z29uIGZpbGw9ImJsYWNrIiBwb2ludHM9IjYsMTAgMjAsMTAgMTMsMTciLz48L3N2Zz4=");
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjI2IiB3aWR0aD0iMjYiIHZpZXdCb3g9IjAgMCAyNiAyNiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0cmFuc2Zvcm09InJvdGF0ZSgyNzAgMTMgMTMpIj48cG9seWdvbiBmaWxsPSJibGFjayIgcG9pbnRzPSI2LDEwIDIwLDEwIDEzLDE3Ii8+PC9zdmc+");
+}
