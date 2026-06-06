@@ -1,6 +1,6 @@
 # Task 02: Theme Tokens
 
-> Status: Pending | Deps: None | Source: `src/common/themes/` (61 theme files)
+> Status: Complete | Deps: None | Source: `src/common/themes/` (61 theme files)
 
 ## Motivation
 
@@ -204,11 +204,11 @@ types/themes.d.ts                       # styled-components theme augmentation
 
 ## Acceptance criteria
 
-- [ ] All 27 color tokens appear as Tailwind utility classes (`bg-canvas`, `text-header-text`, etc.)
-- [ ] All 61 themes available via `data-theme` attribute
-- [ ] `--shadow-out` and `--shadow-in` CSS custom properties generate correct 3D bevel
-- [ ] Theme switching works: changing `data-theme` updates all components
-- [ ] `ThemeProvider` component exported (API-compatible convenience wrapper)
-- [ ] Generation script produces identical values to original theme files
-- [ ] `npm run build` passes
-- [ ] `npm run lint` passes
+- [x] All 27 color tokens appear as Tailwind utility classes (`bg-canvas`, `text-header-text`, etc.)
+- [x] All 61 themes available via `data-theme` attribute
+- [x] `--shadow-out` and `--shadow-in` CSS custom properties generate correct 3D bevel
+- [x] Theme switching works: changing `data-theme` updates all components
+- [x] `ThemeProvider` component exported (API-compatible convenience wrapper)
+- [x] Generation script produces identical values to original theme files
+- [x] `npm run build` passes
+- [x] `npm run lint` passes

@@ -1,6 +1,6 @@
 # Task 03: Style Engine
 
-> Status: Pending | Deps: 01, 02 | Source: `src/common/index.ts` (285 lines of styled-components mixins)
+> Status: Complete | Deps: 01, 02 | Source: `src/common/index.ts` (285 lines of styled-components mixins)
 
 ## Motivation
 
@@ -195,15 +195,15 @@ src/global.css                        # Import borders.css and components.css
 
 ## Acceptance criteria
 
-- [ ] `border-raised` renders correct 3-color bevel matching original `createBorderStyles({style:'button'})`
-- [ ] `border-sunken` renders correct sunken bevel matching original `createBorderStyles({style:'buttonPressed'})`
-- [ ] `border-field` renders text input border matching original `Frame variant="field"`
-- [ ] `bg-hatched` renders checkered pattern matching original `createHatchedBackground()`
-- [ ] `focus-outline` renders 1px dotted outline on `:focus-visible` matching original
-- [ ] `.custom-scrollbar` renders styled scrollbars with triangle arrows matching original `createScrollbars()`
-- [ ] `.text-disabled` renders greyed text with white shadow matching original
-- [ ] `.bg-flat` / `.bg-flat-disabled` render flat variant styling matching original
-- [ ] `getSize` utility produces same output as original
-- [ ] No visual difference from original library for any border/flat/disabled/scrollbar state
-- [ ] `npm run build` passes
-- [ ] `npm run lint` passes
+- [x] `border-raised` renders correct 3-color bevel matching original `createBorderStyles({style:'button'})`
+- [x] `border-sunken` renders correct sunken bevel matching original `createBorderStyles({style:'buttonPressed'})`
+- [x] `border-field` renders text input border matching original `Frame variant="field"`
+- [x] `bg-hatched` renders checkered pattern matching original `createHatchedBackground()`
+- [x] `focus-outline` renders 1px dotted outline on `:focus-visible` matching original
+- [x] `.custom-scrollbar` renders styled scrollbars with triangle arrows matching original `createScrollbars()`
+- [x] `.text-disabled` renders greyed text with white shadow matching original
+- [x] `.bg-flat` / `.bg-flat-disabled` render flat variant styling matching original
+- [x] `getSize` utility produces same output as original
+- [x] No visual difference from original library for any border/flat/disabled/scrollbar state
+- [x] `npm run build` passes
+- [x] `npm run lint` passes

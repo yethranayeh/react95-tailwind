@@ -1,6 +1,6 @@
 # Task 01: Project Scaffold
 
-> Status: Pending | Deps: None
+> Status: Complete | Deps: None
 
 ## Motivation
 
@@ -244,14 +244,14 @@ src/common/constants.ts               # Move into utils
 
 ## Acceptance criteria
 
-- [ ] `npm run build` produces `dist/index.mjs` and `dist/index.cjs`
-- [ ] Build is zero styled-components dependency (verify with `npm ls styled-components` -- should not appear)
-- [ ] `npm run dev` starts Vite dev server
-- [ ] `npm run lint` passes (oxlint)
-- [ ] `npm run format` passes (oxfmt)
-- [ ] Common hooks (5 hooks) ported and type-safe
-- [ ] Common utils (clamp, getSize, noOp, events) ported
-- [ ] `styleReset` exported as string (no styled-components dependency)
-- [ ] `CommonStyledProps` type defined (polymorphic `as` prop)
-- [ ] `blockSizes` (`sm: '28px'`, `md: '36px'`, `lg: '44px'`) preserved
-- [ ] `KEYBOARD_KEY_CODES` preserved
+- [x] `npm run build` produces `dist/index.mjs` and `dist/index.cjs`
+- [x] Build is zero styled-components dependency (verify with `npm ls styled-components` -- should not appear)
+- [x] `npm run dev` starts Vite dev server
+- [x] `npm run lint` passes (oxlint)
+- [x] `npm run format` passes (oxfmt)
+- [x] Common hooks (5 hooks) ported and type-safe
+- [x] Common utils (clamp, getSize, noOp, events) ported
+- [x] `styleReset` exported as string (no styled-components dependency)
+- [x] `CommonStyledProps` type defined (polymorphic `as` prop)
+- [x] `blockSizes` (`sm: '28px'`, `md: '36px'`, `lg: '44px'`) preserved
+- [x] `KEYBOARD_KEY_CODES` preserved
