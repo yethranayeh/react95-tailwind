@@ -12,12 +12,13 @@ on:
 jobs:
   release-library:
     runs-on: ubuntu-latest
+    if: github.repository == 'yethranayeh/react95-tailwind'
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
@@ -29,7 +30,8 @@ jobs:
         run: npm run build
 
       - name: Deploy library
-        run: npx semantic-release || true
+        if: ${{ secrets.NPM_TOKEN != '' }}
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
