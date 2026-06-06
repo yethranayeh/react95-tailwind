@@ -1,9 +1,8 @@
 import React, { forwardRef } from 'react';
-import styled, { css } from 'styled-components';
-import { createBorderStyles, createBoxStyles } from '../common';
+import clsx from 'clsx';
 import { CommonStyledProps } from '../types';
 
-type FrameProps = {
+export type FrameProps = {
   children?: React.ReactNode;
   shadow?: boolean;
 } & (
@@ -18,51 +17,46 @@ type FrameProps = {
   React.HTMLAttributes<HTMLDivElement> &
   CommonStyledProps;
 
-const createFrameStyles = (variant: FrameProps['variant']) => {
-  switch (variant) {
-    case 'status':
-    case 'well':
-      return css`
-        ${createBorderStyles({ style: 'status' })}
-      `;
-    case 'window':
-    case 'outside':
-      return css`
-        ${createBorderStyles({ style: 'window' })}
-      `;
-    case 'field':
-      return css`
-        ${createBorderStyles({ style: 'field' })}
-      `;
-    default:
-      return css`
-        ${createBorderStyles()}
-      `;
-  }
+const variantClassMap: Record<string, string> = {
+  window: 'border-window',
+  button: 'border-raised',
+  field: 'border-field bg-canvas text-canvas-text',
+  status: 'border-sunken',
+  // Deprecated -- map to closest equivalent
+  outside: 'border-window',
+  inside: 'border-sunken',
+  well: 'border-sunken'
 };
 
-const StyledFrame = styled.div<Required<Pick<FrameProps, 'variant'>>>`
-  position: relative;
-  font-size: 1rem;
-  ${({ variant }) => createFrameStyles(variant)}
-  ${({ variant }) =>
-    createBoxStyles(
-      variant === 'field'
-        ? { background: 'canvas', color: 'canvasText' }
-        : undefined
-    )}
-`;
-
 const Frame = forwardRef<HTMLDivElement, FrameProps>(
-  ({ children, shadow = false, variant = 'window', ...otherProps }, ref) => {
+  (
+    {
+      children,
+      shadow = false,
+      variant = 'window',
+      as: Component = 'div',
+      className,
+      ...otherProps
+    },
+    ref
+  ) => {
     return (
-      <StyledFrame ref={ref} shadow={shadow} variant={variant} {...otherProps}>
+      <Component
+        ref={ref}
+        className={clsx(
+          'relative border-w95',
+          variantClassMap[variant as string],
+          shadow && 'shadow-tooltip',
+          className
+        )}
+        {...otherProps}
+      >
         {children}
-      </StyledFrame>
+      </Component>
     );
   }
 );
 
 Frame.displayName = 'Frame';
 
-export { Frame, FrameProps };
+export { Frame };
