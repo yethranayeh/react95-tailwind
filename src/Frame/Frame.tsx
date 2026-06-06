@@ -1,39 +1,42 @@
 import React, { forwardRef } from 'react';
-import clsx from 'clsx';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../common/utils';
 import { CommonStyledProps } from '../types';
 
-export type FrameProps = {
-  children?: React.ReactNode;
-  shadow?: boolean;
-} & (
-  | {
-      variant?: 'window' | 'button' | 'field' | 'status';
+const frameVariants = cva('relative border-w95', {
+  variants: {
+    variant: {
+      window: 'border-window',
+      button: 'border-raised',
+      field: 'border-field bg-canvas text-canvas-text',
+      status: 'border-sunken',
+      // Deprecated -- map to closest equivalent
+      outside: 'border-window',
+      inside: 'border-sunken',
+      well: 'border-sunken'
+    },
+    shadow: {
+      true: 'shadow-tooltip'
     }
-  | {
-      /** @deprecated Use 'window', 'button' or 'status' */
-      variant?: 'outside' | 'inside' | 'well';
-    }
-) &
-  React.HTMLAttributes<HTMLDivElement> &
-  CommonStyledProps;
+  },
+  defaultVariants: {
+    variant: 'window',
+    shadow: false
+  }
+});
 
-const variantClassMap: Record<string, string> = {
-  window: 'border-window',
-  button: 'border-raised',
-  field: 'border-field bg-canvas text-canvas-text',
-  status: 'border-sunken',
-  // Deprecated -- map to closest equivalent
-  outside: 'border-window',
-  inside: 'border-sunken',
-  well: 'border-sunken'
-};
+export type FrameProps = React.HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof frameVariants> &
+  CommonStyledProps & {
+    children?: React.ReactNode;
+  };
 
 const Frame = forwardRef<HTMLDivElement, FrameProps>(
   (
     {
       children,
-      shadow = false,
-      variant = 'window',
+      shadow,
+      variant,
       as: Component = 'div',
       className,
       ...otherProps
@@ -43,12 +46,7 @@ const Frame = forwardRef<HTMLDivElement, FrameProps>(
     return (
       <Component
         ref={ref}
-        className={clsx(
-          'relative border-w95',
-          variantClassMap[variant as string],
-          shadow && 'shadow-tooltip',
-          className
-        )}
+        className={cn(frameVariants({ variant, shadow }), className)}
         {...otherProps}
       >
         {children}
@@ -59,4 +57,4 @@ const Frame = forwardRef<HTMLDivElement, FrameProps>(
 
 Frame.displayName = 'Frame';
 
-export { Frame };
+export { Frame, frameVariants };

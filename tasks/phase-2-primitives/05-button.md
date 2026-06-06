@@ -46,65 +46,81 @@ interface ButtonProps extends CommonStyledProps {
 }
 ```
 
-### Variant → CSS class mapping
+### CVA Definition
 
 ```ts
-const variantClassMap: Record<string, { base: string; active: string; disabled: string }> = {
-  default: {
-    base: "border-raised bg-material px-2",
-    active: "border-sunken bg-hatched",
-    disabled: "text-disabled",
-  },
-  raised: {
-    base: "border-raised bg-material px-2 pt-[5px] pb-[6px]", // taller
-    active: "border-sunken bg-hatched pt-[6px] pb-[5px]",     // text shift on press
-    disabled: "text-disabled",
-  },
-  flat: {
-    base: "bg-flat border-0",
-    active: "bg-flat-disabled border-sunken",                  // TODO: verify active state
-    disabled: "text-disabled bg-canvas",
-  },
-  thin: {
-    base: "border-thin-raised bg-material px-1",
-    active: "border-thin-sunken bg-hatched",
-    disabled: "text-disabled",
-  },
-};
-```
+const buttonVariants = cva(
+  "inline-flex items-center justify-center border-w95 text-material-text font-sans select-none cursor-pointer focus-visible:focus-outline disabled:pointer-events-none",
+  {
+    variants: {
+      variant: {
+        default: "border-raised bg-material px-2",
+        raised: "border-raised bg-material px-2 pt-[5px] pb-[6px]",
+        flat: "bg-flat border-0",
+        thin: "border-thin-raised bg-material px-1",
+        menu: "border-thin-raised bg-material px-1", // deprecated
+      },
+      size: {
+        sm: "h-[28px] min-h-[28px]",
+        md: "h-[36px] min-h-[36px]",
+        lg: "h-[44px] min-h-[44px]",
+      },
+      active: {
+        true: "",
+      },
+      primary: {
+        true: "border border-solid border-[--color-border-darkest]",
+      },
+      fullWidth: {
+        true: "w-full",
+      },
+      square: {
+        true: "",
+      },
+      disabled: {
+        true: "text-disabled",
+      },
+    },
+    compoundVariants: [
+      // Active states
+      { variant: "default", active: true, class: "border-sunken bg-hatched" },
+      { variant: "raised", active: true, class: "border-sunken bg-hatched pt-[6px] pb-[5px]" },
+      { variant: "flat", active: true, class: "bg-flat-disabled border-sunken" },
+      { variant: "thin", active: true, class: "border-thin-sunken bg-hatched" },
 
-### Size → Tailwind classes
+      // Square sizes
+      { square: true, size: "sm", class: "w-[28px]" },
+      { square: true, size: "md", class: "w-[36px]" },
+      { square: true, size: "lg", class: "w-[44px]" },
 
-```ts
-const sizeClassMap: Record<string, string> = {
-  sm: "h-[28px] min-h-[28px]",
-  md: "h-[36px] min-h-[36px]",
-  lg: "h-[44px] min-h-[44px]",
-};
-
-const squareSizeMap: Record<string, string> = {
-  sm: "w-[28px]",
-  md: "w-[36px]",
-  lg: "w-[44px]",
-};
+      // Disabled states
+      { variant: "flat", disabled: true, class: "bg-canvas" },
+    ],
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  }
+);
 ```
 
 ### Implementation
 
 ```tsx
-import clsx from "clsx";
 import { forwardRef } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../common/utils";
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      variant = "default",
-      size = "md",
-      active = false,
-      disabled = false,
-      primary = false,
-      fullWidth = false,
-      square = false,
+      variant,
+      size,
+      active,
+      disabled,
+      primary,
+      fullWidth,
+      square,
       as: Component = "button",
       className,
       children,
@@ -112,28 +128,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    const variantStyles = variantClassMap[variant];
-    const stateClass = disabled
-      ? variantStyles.disabled
-      : active
-        ? variantStyles.active
-        : variantStyles.base;
-
     return (
       <Component
         ref={ref}
         disabled={disabled}
-        className={clsx(
-          "inline-flex items-center justify-center",
-          "border-w95",
-          "text-material-text font-sans select-none cursor-pointer",
-          "focus-visible:focus-outline",
-          stateClass,
-          sizeClassMap[size],
-          fullWidth && "w-full",
-          square && squareSizeMap[size],
-          primary && "border border-solid border-[--color-border-darkest]", // thick outline
-          disabled && "pointer-events-none",
+        className={cn(
+          buttonVariants({
+            variant,
+            size,
+            active,
+            disabled,
+            primary,
+            fullWidth,
+            square,
+          }),
           className,
         )}
         {...rest}
@@ -153,6 +161,7 @@ Button.displayName = "Button";
 3. **Primary border**: `primary` adds a 1px solid border on top of the existing bevel, matching the original's thick outline. The color uses `--color-border-darkest` directly since Tailwind can't generate a utility for this one-off case.
 4. **No SC dependency**: `$disabled` transient prop is replaced with plain `disabled` -- since this renders a native `<button>`, the disabled attribute is valid DOM.
 5. **`StyledButton` export**: The original exports `StyledButton` for `WindowHeader` to compose. We'll export the same component under the same name for compatibility (it's the same component, just not a `styled.button`).
+6. **CVA for variants**: Adopting Shadcn's approach using `class-variance-authority` and the `cn` utility for better maintainability and consistency.
 
 ### Files
 
